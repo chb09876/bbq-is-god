@@ -21,6 +21,54 @@ int back(const queue *const q);
 void clear(queue *q);
 void delete_queue(queue *q);
 
+int main()
+{
+    int N;
+    queue q;
+    init_queue(&q, 2);
+    scanf("%d", &N);
+    for (int i = 0; i < N; ++i)
+    {
+        char command[6];
+        scanf("%s", command);
+        if (!strcmp(command, "push"))
+        {
+            int value;
+            scanf("%d", &value);
+            push(&q, value);
+        }
+        else if (!strcmp(command, "pop"))
+        {
+            if (empty(&q))
+                printf("%d\n", -1);
+            else
+                printf("%d\n", pop(&q));
+        }
+        else if (!strcmp(command, "size"))
+        {
+            printf("%d\n", size(&q));
+        }
+        else if (!strcmp(command, "empty"))
+        {
+            printf("%d\n", empty(&q));
+        }
+        else if (!strcmp(command, "front"))
+        {
+            if (empty(&q))
+                printf("%d\n", -1);
+            else
+                printf("%d\n", front(&q));
+        }
+        else if (!strcmp(command, "back"))
+        {
+            if (empty(&q))
+                printf("%d\n", -1);
+            else
+                printf("%d\n", back(&q));
+        }
+    }
+}
+
 void init_queue(queue *const q, int size)
 {
     q->arr = (int *)malloc(sizeof(int) * size);
@@ -43,7 +91,7 @@ void push(queue *const q, int value)
         int *tmp = q->arr;
         q->arr = (int *)malloc(sizeof(int) * q->reserved * 2);
 
-        for (int i = 0; i < q->size; ++i)
+        for (unsigned int i = 0; i < q->size; ++i)
             q->arr[i] = tmp[(q->front + i) % q->reserved];
         free(tmp);
         q->front = 0;

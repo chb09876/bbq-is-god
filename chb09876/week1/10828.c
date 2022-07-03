@@ -18,6 +18,13 @@ int top(const stack *const s);
 void clear(stack *s);
 void delete_stack(stack *s);
 
+void init_stack(stack *s, int mem_size)
+{
+    s->arr = (int *)malloc(sizeof(int) * mem_size);
+    s->reserved = mem_size;
+    s->size = 0;
+}
+
 void push(stack *s, int value)
 {
     if (s->reserved == 0)
@@ -30,7 +37,7 @@ void push(stack *s, int value)
         int *tmp = s->arr;
         s->reserved *= 2;
         s->arr = (int *)malloc(sizeof(int) * s->reserved);
-        memcpy(s->arr, tmp, s->size);
+        memcpy(s->arr, tmp, s->size * sizeof(int));
         free(tmp);
     }
     s->arr[s->size++] = value;
@@ -38,8 +45,6 @@ void push(stack *s, int value)
 
 int pop(stack *s)
 {
-    if (s->size == 0)
-        return -1;
     return s->arr[--s->size];
 }
 
@@ -55,8 +60,6 @@ int empty(const stack *const s)
 
 int top(const stack *const s)
 {
-    if (s->size == 0)
-        return -1;
     return s->arr[s->size - 1];
 }
 
@@ -76,6 +79,7 @@ int main()
 {
     int N;
     stack s;
+    init_stack(&s, 3);
     scanf("%d", &N);
     for (int i = 0; i < N; ++i)
     {
