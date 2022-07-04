@@ -1,4 +1,3 @@
-//백준 10845번은 맞는데 18258번은 틀린다!! 왜지!!
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,12 +11,11 @@ typedef struct queue
     int cnt;
 }queue;
 
-void initQueue(queue *q, int size);
-int empty(queue *q);
-int full(queue *q);
 void qExpand(queue *q);
-void enqueue(queue *q, int data);
-int dequeue(queue *q);
+void enqueue_front(queue *q, int data);
+int dequeue_front(queue *q);
+void enqueue_back(queue *q, int data);
+int dequeue_back(queue *q);
 
 void initQueue(queue *q, int size)
 {
@@ -72,7 +70,7 @@ void qExpand(queue *q)
     i = 0;
     while (i < count)
     {
-        buf[i] = dequeue(q);
+        buf[i] = dequeue_front(q);
         i++;
     }
     q->max *= 2;
@@ -83,28 +81,29 @@ void qExpand(queue *q)
     i = 0;
     while (i < count)
     {
-        enqueue(q, buf[i]);
+        enqueue_front(q, buf[i]);
         i++;
     }
     free(buf);
 }
 
-void enqueue(queue *q, int data)
+void enqueue_front(queue *q, int data)
 {
     if (!full(q))
     {
-        q->rear = (q->rear + 1) % q->max;
-        q->data[q->rear] = data;
+        q->data[q->front] = data;
+        q->front = (q->front - 1 + q->max) % q->max;
         q->cnt++;
     }
     else
     {
         qExpand(q);
-        enqueue(q, data);
+        enqueue_front(q, data);
     }
 }
 
-int dequeue(queue *q)
+//기존 원형큐
+int dequeue_front(queue *q)
 {
     if (!empty(q))
     {
@@ -115,12 +114,41 @@ int dequeue(queue *q)
     return (-1);
 }
 
+//기존 원형큐
+void enqueue_back(queue *q, int data)
+{
+    if (!full(q))
+    {
+        q->rear = (q->rear + 1) % q->max;
+        q->data[q->rear] = data;
+        q->cnt++;
+    }
+    else
+    {
+        qExpand(q);
+        enqueue_back(q, data);
+    }
+}
+
+int dequeue_back(queue *q)
+{
+    int value;
+
+    if (!empty(q))
+    {
+        value = q->rear;
+        q->rear = (q->rear - 1 + q->max) % q->max;
+        q->cnt--;
+        return (q->data[value]);
+    }
+    return (-1);
+}
+
 int	main(void)
 {
     int n;
     int i;
-    char order[10];
-    int num;
+    char order[11];
     queue q;
 
     initQueue(&q, 1024);
@@ -131,12 +159,20 @@ int	main(void)
     {
         scanf("%s", order);
 
-        if(strcmp(order, "push") == 0){
+        int num;
+        if(strcmp(order, "push_front") == 0){
             scanf("%d", &num);
-            enqueue(&q, num);
+            enqueue_front(&q, num);
         }
-        else if(strcmp(order, "pop") == 0){
-            printf("%d\n", dequeue(&q));
+        else if(strcmp(order, "push_back") == 0){
+            scanf("%d", &num);
+            enqueue_back(&q, num);
+        }
+        else if(strcmp(order, "pop_front") == 0){
+            printf("%d\n", dequeue_front(&q));
+        }
+        else if(strcmp(order, "pop_back") == 0){
+            printf("%d\n", dequeue_back(&q));
         }
         else if(strcmp(order, "size") == 0){
             printf("%d\n", q.cnt);
