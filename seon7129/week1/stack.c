@@ -47,7 +47,8 @@ void push(stack *S, int data)
     }
     else
     {
-        S->data = (int *) realloc(S->data, S->max * 2 * sizeof(int));
+        S->max *= 2;
+        S->data = (int *) realloc(S->data, S->max * sizeof(int));
         if (!S->data)
             return ;
         push(S, data);
@@ -83,9 +84,10 @@ int	main(void)
     int i;
     char order[10];
     int num;
-    stack s;
+    stack *s;
 
-    initStack(&s, 1024);
+    s = (stack *) malloc(sizeof(stack));
+    initStack(s, 1024);
     i = 0;
 
     scanf("%d", &n);
@@ -95,19 +97,19 @@ int	main(void)
 
         if(ft_strcmp(order, "push") == 0){
             scanf("%d", &num);
-            push(&s, num);
+            push(s, num);
         }
         else if(ft_strcmp(order, "pop") == 0){
-            printf("%d\n", pop(&s));
+            printf("%d\n", pop(s));
         }
         else if(ft_strcmp(order, "size") == 0){
-            printf("%d\n", s.top + 1);
+            printf("%d\n", s->top + 1);
         }
         else if(ft_strcmp(order, "empty") == 0){
-            printf("%d\n", empty(&s));
+            printf("%d\n", empty(s));
         }
         else if(ft_strcmp(order, "top") == 0){
-            printf("%d\n", Top(&s));
+            printf("%d\n", Top(s));
         }
         else{
             printf("%s is wrong order.\n", order);
@@ -115,6 +117,6 @@ int	main(void)
         i++;
     }
 
-    free(s.data);
+    free(s);
     return (0);
 }
