@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct stack
 {
@@ -81,4 +82,38 @@ int top(stack *s)
 		tmp = tmp->next;
 	}
 	return (tmp->data);
+}
+
+int main()
+{
+	stack	*s = init_stack();
+	int N;
+	scanf("%d", &N);
+    for (int i = 0; i < N; ++i)
+    {
+        char command[6];
+        scanf("%s", command);
+        if (!strcmp(command, "push"))
+        {
+            int value;
+            scanf("%d", &value);
+            push(s, value);
+        }
+        else if (!strcmp(command, "pop"))
+        {
+			printf("%d\n", pop(s));
+        }
+        else if (!strcmp(command, "size"))
+        {
+            printf("%d\n", size(s));
+        }
+        else if (!strcmp(command, "empty"))
+        {
+            printf("%d\n", empty(s));
+        }
+        else if (!strcmp(command, "top"))
+        {
+                printf("%d\n", top(s));
+        }
+    }
 }
