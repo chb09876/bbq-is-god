@@ -117,7 +117,7 @@ int	main(void)
         i++;
     }
 
-    
+    free(s->data);
     free(s);
     return (0);
 }
