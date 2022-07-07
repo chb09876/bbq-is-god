@@ -1,3 +1,3 @@
 #include <stdlib.h>
+#include <string.h>
 
-hello world !
