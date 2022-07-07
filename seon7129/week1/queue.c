@@ -79,7 +79,7 @@ void qExpand(queue *q)
     q->data = (int *) realloc(q->data, q->max * sizeof(int));
     if (!q->data)
         return ;
-    count = q->cnt;
+    initQueue(q, q->max);
     i = 0;
     while (i < count)
     {
