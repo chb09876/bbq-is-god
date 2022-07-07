@@ -67,6 +67,7 @@ void qExpand(queue *q)
     int count;
     int *buf;
 
+    printf("here!!\n");
     buf = (int *) malloc(q->max * sizeof(int));
     count = q->cnt;
     i = 0;
@@ -79,7 +80,7 @@ void qExpand(queue *q)
     q->data = (int *) realloc(q->data, q->max * sizeof(int));
     if (!q->data)
         return ;
-    count = q->cnt;
+    initQueue(q, q->max);
     i = 0;
     while (i < count)
     {
@@ -123,7 +124,7 @@ int	main(void)
     int num;
     queue q;
 
-    initQueue(&q, 1024);
+    initQueue(&q, 2);
     i = 0;
 
     scanf("%d", &n);
