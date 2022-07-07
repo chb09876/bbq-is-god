@@ -2,10 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 
+// 불린 변수 선언
 #define TRUE 1
 #define FALSE 0
 #define MINUS -1
 
+// 구조체 선언
 typedef struct _stack
 {
     int top;
@@ -13,6 +15,7 @@ typedef struct _stack
     int max;
 }   Stack;
 
+// 스택 초기화
 void StackInit(Stack * sp, int size)
 {
     sp->data = (int *) malloc(size * sizeof(int));
