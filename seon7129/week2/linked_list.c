@@ -1,7 +1,5 @@
-//입력이 잘 못 들어왔을 때 예외처리 안해줌
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 typedef struct listNode
 {
