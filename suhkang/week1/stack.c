@@ -1,117 +1,80 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
 
-// 불린 변수 선언
-#define TRUE 1
-#define FALSE 0
-#define MINUS -1
-
-// 구조체 선언
-typedef struct _stack
+// 노드 선언
+struct node
 {
-    int top;
-    int *data;
-    int max;
-}   Stack;
+    int data;
+    struct node *next;
+};
 
-// 스택 초기화
-void StackInit(Stack * sp, int size)
+// 헤드 전역
+struct node *head = NULL;
+
+void push(int val)
 {
-    sp->data = (int *) malloc(size * sizeof(int));
-    if (!sp->data)
-        return ;
-    sp->top = -1;
-    sp->max = size;
+    // 새로운 노드 만들기
+    struct node *newNode = malloc(sizeof(struct node));
+    newNode->data = val;
+
+    // 새로운 노드는 포인터기 헤드 노드를 가리키도록 함
+    newNode->next = head;
+
+    // 새 노드를 헤드 노드로 만듬
+    // 헤드가 항상 마지막으로 삽입된 데이터를 가리키도록
+    head = newNode;
 }
 
-int IsEmpty(Stack * sp)
+void pop()
 {
-    if(sp->top == -1) return TRUE;
-    return FALSE;
-}
+    //temp는 헤드 노드를 해제하는데 사용 됨.
+    struct node *temp;
 
-int Size(Stack *sp)
-{
-    return sp->top + 1;
-}
-
-int IsFull(Stack * sp)
-{
-    if(sp->top + 1 >= sp->max) return TRUE;
-    return FALSE;
-}
-
-void Push(Stack * sp, int data) 
-{
-    if(IsFull(sp) == TRUE)
-    {
-        sp->data = (int *) realloc(sp->data, sp->max * 2 * sizeof(int));
-        if (!sp->data) return ;
-        Push(sp, data);
-    }
+    if(head == NULL)
+        printf("Stack is Empty\n");
     else
     {
-        sp->top++;
-        sp->data[sp->top] = data;
+        printf("Poped element = %d\n", head->data);
+
+        // 헤드 노드 백업
+        temp = head;
+
+        // 헤드 노드가 다음 노드를 가리키도록 함
+        // 논리적으로 노드 제거
+        head = head->next;
+
+        // 팝으로 제거된 요소의 메모리를 해제
+        free(temp);
     }
 }
 
-int Pop(Stack * sp)
+// 연결 리스트 출력
+void printList()
 {
-    if(IsEmpty(sp) == TRUE) return MINUS;
-    return sp->data[(sp->top)--];
-}
+    struct node *temp = head;
 
-int Top(Stack *sp)
-{
-    if(IsEmpty(sp) == TRUE) return MINUS;
-    return sp->data[sp->top];
-}
-
-int main(void)
-{
-    int     n;
-    char    oper[6];
-    int     i;
-    int     num;
-    Stack   stack;
-    
-    scanf("%d", &n);
-    fgetc(stdin);
-    StackInit(&stack, 1000);
-    
-    i = 0;
-    while (i < n)
+    // 전체 연결 목록 반복 데이터 출력
+    while(temp != NULL)
     {
-        scanf("%s", oper);
-        fgetc(stdin);
-
-        if(strcmp(oper, "push") == 0)
-        {
-            scanf("%d", &num);
-            fgetc(stdin);
-            Push(&stack, num);
-        }
-        else if(strcmp(oper, "pop") == 0)
-        {
-            printf("%d\n", Pop(&stack));
-        }
-        else if(strcmp(oper, "empty") == 0)
-        {
-            printf("%d\n", IsEmpty(&stack));
-        }
-        else if(strcmp(oper, "size") == 0)
-        {
-            printf("%d\n", Size(&stack));
-        }
-        else if(strcmp(oper, "top") == 0)
-        {
-            printf("%d\n", Top(&stack));
-        }
-
-        i++;
+         printf("%d->", temp->data);
+         temp = temp->next;
     }
+    printf("NULL\n");
+}
+
+int main()
+{
+    push(10);
+    push(20);
+    push(30);
+    printf("Linked List\n");
+    printList();
+    pop();
+    printf("팝 이후에 새로운 연결 리스트\n");
+    printList();
+    pop();
+    printf("팝 이후에 새로운 연결 리스트\n");
+    printList();
 
     return (0);
 }
