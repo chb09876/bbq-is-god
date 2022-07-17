@@ -72,6 +72,7 @@ listNode *read_node_data(listNode *h, int data)
     while (cur->data != data)
     {
         cur = cur->next;
+        //조건문으로 수정 완료
         if (cur->next == NULL)
         {
             printf("wrong data\n");
