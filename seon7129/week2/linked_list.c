@@ -78,7 +78,6 @@ listNode *read_node_data(listNode *h, int data)
             break;
         }
     }
-
     return (cur);
 }
 
