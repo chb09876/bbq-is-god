@@ -69,16 +69,16 @@ listNode *read_node_data(listNode *h, int data)
     listNode *cur;
     cur = h;
 
-    while (cur->data != data && cur->next != NULL)
+    while (cur->data != data)
     {
         cur = cur->next;
+        //조건문으로 수정 완료
+        if (cur->next == NULL)
+        {
+            printf("wrong data\n");
+            break;
+        }
     }
-    if(cur->next == NULL)
-    {
-        printf("wrong data\n");
-        return (h);
-    }
-
     return (cur);
 }
 
