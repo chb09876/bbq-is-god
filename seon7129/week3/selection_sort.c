@@ -1,3 +1,4 @@
+//2751에서 타임에러남. 시간 복잡도 낮은 정렬 알고리즘으로 해결해야될 듯
 #include <stdio.h>
 
 void ft_swap(int *a, int *b)

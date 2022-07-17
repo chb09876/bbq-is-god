@@ -69,14 +69,14 @@ listNode *read_node_data(listNode *h, int data)
     listNode *cur;
     cur = h;
 
-    while (cur->data != data && cur->next != NULL)
+    while (cur->data != data)
     {
         cur = cur->next;
-    }
-    if(cur->next == NULL)
-    {
-        printf("wrong data\n");
-        return (h);
+        if (cur->next == NULL)
+        {
+            printf("wrong data\n");
+            break;
+        }
     }
 
     return (cur);
