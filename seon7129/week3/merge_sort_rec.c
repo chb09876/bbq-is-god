@@ -1,11 +1,12 @@
-//SIGSEGV 허용되지 않은 메모리 액세스로 오류가 난다..
-//내일 고칠래...
+//왜 시간초과..?ㅜㅜㅜㅜㅜ
 #include <stdio.h>
+
+int temp[1000001] = {};
+int arr[1000001] = {};
 
 void merge(int *arr, int left, int right)
 {
     int mid;
-    int temp[10000000];
     int l, m, t;
     int i;
 
@@ -22,6 +23,7 @@ void merge(int *arr, int left, int right)
         else
             temp[t++] = arr[m++];
     }
+
     if (l > mid)
     {
         i = l;
@@ -66,7 +68,6 @@ void merge_sort(int *arr, int left, int right)
 int main()
 {
     int n;
-    int arr[10000000];
     int i;
     int num;
 
