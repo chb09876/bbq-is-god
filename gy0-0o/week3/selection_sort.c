@@ -1,35 +1,29 @@
 #include <stdio.h>
 
-void    selection_sort(int arr[]) 
-{
-    int min, tmp;
+int   len_arr(int arr[]) {
+   int cnt = 0;
+   while (arr[cnt] != '\0') {cnt++;}
+   return (cnt);
+}
 
-    for (int i = 0; i < 5; i++)
-    {
-        min = i;
-        for (int j = i + 1; j < 6; j++)
-        {
-            if (arr[j] < arr[min])
-            {
-                min = j;
-            }
-        }
-        if (i != min)
-        {
+void  selection_sort(int arr[]) {
+   int tmp = 0;
+   for (int i = 0; i < len_arr(arr)-1; i++) {
+      for (int j = i + 1; j < len_arr(arr); j++) {
+         if (arr[i] > arr[j]) {
             tmp = arr[i];
-            arr[i] = arr[min];
-            arr[min] = tmp;
-        }
-    }
-
-    for (int i = 0; i < 6; i++) {
-        printf("%d ", arr[i]);
-    }
+            arr[i] = arr[j];
+            arr[j] = tmp;
+         }
+      }
+   }
+   for (int k = 0; k < len_arr(arr); k++) {
+      printf("%d ", arr[k]);
+   }
 }
 
 int main(void) {
-    int arr[] = {9,6,7,3,5,4};
-
-    selection_sort(arr);
-    return (0);
+   int   arr[6] = {2,1,4,5,7,6};
+   selection_sort(arr);
+   return (0);
 }
