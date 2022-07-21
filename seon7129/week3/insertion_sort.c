@@ -8,7 +8,6 @@ void insertion_sort(int *arr, int n)
     int num;
 
     i = 1;
-    j = 0;
     while (i < n)
     {
         num = arr[i];
