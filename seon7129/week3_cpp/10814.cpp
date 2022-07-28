@@ -8,8 +8,8 @@ typedef struct person
     char *name;
 }person;
 
-person p[1000001];
-person temp[1000001];
+person p[100001];
+person temp[100001];
 
 void merge(int left, int mid, int right)
 {
@@ -23,39 +23,26 @@ void merge(int left, int mid, int right)
     while (l <= mid && m <= right)
     {
         if (p[l].age <= p[m].age)
-        {
-            temp[t++].age = p[l++].age;
-            temp[t++].name = p[l++].name;
-        }
+            temp[t++] = p[l++];
         else
-        {
-            temp[t++].age = p[m++].age;
-            temp[t++].name = p[m++].name;
-        }
+            temp[t++] = p[m++];
     }
 
     if (l > mid)
     {
-        while(t <= right)
-        {
-            temp[t++].age = p[m++].age;
-            temp[t++].name = p[m++].name;
-        }
+        while(m <= right)
+            temp[t++] = p[m++];
     }
     else
     {
-        while(t <= mid)
-        {
-            temp[t++].age = p[l++].age;
-            temp[t++].name = p[l++].name;
-        }
+        while(l <= mid)
+            temp[t++] = p[l++];
     }
 
     //원래 배열로 복사
     while (left <= right)
     {
-        p[left].age = temp[left].age;
-        p[left].name = temp[left].name;
+        p[left] = temp[left];
         left++;
     }
 }
@@ -67,7 +54,7 @@ void merge_sort(int left, int right)
     if (left >= right)
         return ;
 
-    mid = left + (left + right) / 2;
+    mid = (left + right) / 2;
     merge_sort(left, mid);
     merge_sort(mid + 1, right);
     merge(left, mid ,right);
@@ -80,12 +67,18 @@ int main()
     scanf("%d", &n);
 
     for (i = 0; i < n; i++)
-        scanf("%d %s", &p[i].age, p[i].name);
+    {
+        scanf("%d", &p[i].age);
+        scanf("%d", p[i].name);
+    }
 
     merge_sort(0, n - 1);
 
     for (i = 0; i < n; i++)
-        printf("%d %s\n", p[i].age, p[i].name);
+    {
+        printf("%d ", p[i].age);
+        printf("%s\n", p[i].name);
+    }
 
     return (0);
 }

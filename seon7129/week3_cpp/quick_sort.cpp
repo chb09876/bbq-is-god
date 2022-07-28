@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int arr[100000001];
+int arr[10000001] = {0,};
 
 void quick_sort(int left, int right)
 {
@@ -20,12 +20,12 @@ void quick_sort(int left, int right)
         while (arr[low] < pivot)
             low++;
         while (arr[high] > pivot)
-            high++;
+            high--;
         if (low <= high)
         {
             swap(arr[low], arr[high]);
             low++;
-            high++;
+            high--;
         }
     }
     quick_sort(left, high);
