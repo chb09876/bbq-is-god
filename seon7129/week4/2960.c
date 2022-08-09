@@ -1,3 +1,4 @@
+//제곱부터 지워주면됨
 #include <stdio.h>
 
 int main()
