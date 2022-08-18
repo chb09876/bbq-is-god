@@ -6,7 +6,7 @@ int is_pn(int n)
 	int i;
 
 	i = 2;
-	if (n == 1)
+	if (n == 1 || n == 0 || n < 0)
 		return (0);
 	while (i*i <= n)
 	{
@@ -20,17 +20,17 @@ int is_pn(int n)
 int main()
 {
 	int n;
-	int *arr;
-	int num;
+	long *arr;
+	long num;
 	int i;
 
 	scanf("%d",&n);
 
-	arr = (int *)malloc(sizeof(int) * n);
+	arr = (long *)malloc(sizeof(long) * n);
 	i = 0;
 	while (i < n)
 	{
-		scanf("%d",&num);
+		scanf("%ld",&num);
 		arr[i] = num;
 		i++;
 	}
@@ -43,7 +43,7 @@ int main()
 				break;
 			arr[i]++;
 		}
-		printf("%d\n",arr[i]);
+		printf("%ld\n",arr[i]);
 		i++;
 	}
 }
