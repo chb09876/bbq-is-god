@@ -46,16 +46,19 @@ int main()
     int i;
     char a, b, c;
 
-    for (i = 1; i < 26; i++)
+    for (i = 0; i < 26; i++)
     {
         Node[i].left = -1;
         Node[i].right = -1;
     }
 
     scanf("%d", &n);
+    getchar();
     for (i = 0; i < n; i++)
     {
         scanf("%c %c %c", &a, &b, &c);
+        getchar();
+        //fflush(stdin);
         if (b != '.')
             Node[a - 'A'].left = b - 'A';
         if (c != '.')
