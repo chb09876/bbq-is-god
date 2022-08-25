@@ -1,3 +1,4 @@
+//반례가 더 있나봄... 도대체 뭐지..
 #include <stdio.h>
 
 void search_doc(char *doc, char *word)
