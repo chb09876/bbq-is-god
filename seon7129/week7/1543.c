@@ -21,6 +21,7 @@ void search_doc(char *doc, char *word)
         }
         else
         {
+            i = i - j + 1;
             j = 0;
             if (doc[i] == word[j])
                 j++;
